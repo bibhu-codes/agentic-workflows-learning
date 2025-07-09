@@ -8,8 +8,8 @@ from nicegui import ui
 - Final experiment: Embedding image inside link to act as a button.
 - Demonstrated different ways to customize ui.chat_message using HTML, multiline text, and child elements with with block.
 - learned about event handlers, client side and user side and cards
-- Practiced moving cards and moving labels inside cards by using .move() function
-- Practiced layout structuring using ui.row() and ui.column()
+- Experimented with moving cards and moving labels inside cards by using .move() function
+- Experimented with layout structuring using ui.row() and ui.column()
 
 🧠 Concepts Practiced: NiceGUI Label/Link/Row/Column, Unicode spacing, Anchor navigation
 """
