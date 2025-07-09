@@ -7,6 +7,9 @@ from nicegui import ui
 - Studied link-target navigation and spacing tricks.
 - Final experiment: Embedding image inside link to act as a button.
 - Demonstrated different ways to customize ui.chat_message using HTML, multiline text, and child elements with with block.
+- learned about event handlers, client side and user side and cards
+- Practiced moving cards and moving labels inside cards by using .move() function
+- Practiced layout structuring using ui.row() and ui.column()
 
 🧠 Concepts Practiced: NiceGUI Label/Link/Row/Column, Unicode spacing, Anchor navigation
 """
@@ -124,6 +127,80 @@ ui.chat_message(text=['Hi!','How are you?'])
 with ui.chat_message():
     ui.label('What is this?')
     ui.image('https://robohash.org/ui').classes('w-64')
+
+
+# =======================
+# ✅ 4. Generic Element
+# =======================
+
+#-------------📝📝📝📝Event Handlers---------------------------###
+# Python Handler: To handle event on server side (mostly used where backend system comes to play)
+# JS Handler: To handle it on client side (on browser itself)
+# use emit : To send a part of the data to server
+#---------------------------------------------------------------###
+
+with ui.element('div').classes('p-2 bg-blue-100'):
+    ui.label("inside div block with a coloured background")
+
+#Handlers (in documentation -> will be there but in real, there is nothig in js like this,instead use =>
+ui.button('Python Handlers').on('click',lambda e: ui.notify(f'click: ({e.args["clientX"]},{e.args["clientY"]})'))
+ui.button('JS Handler').on('click',js_handler='(e) => alert(`click: (${e.clientX},${e.clientY})`)')
+ui.button('Combined').on('click', lambda e: ui.notify(f'click:{e.args}'),
+                         js_handler='(e) => emit(e.clientX,e.clientY)')
+
+#trying card
+with ui.card():
+    ui.label('💡 Tip of the Day')
+    ui.label('Use `ui.card` to group related UI elements with a clean design.')
+
+
+# 🎯 Challenge 1. keep both cards side by side and add one button to move the text between cards
+#tried many ways, both row as column and keeping both cards in one row and button in another works
+with ui.column().classes('items-center space-y-4'): #to keep button in one row and both cards in one row
+    #To keep labels in one row
+    with ui.row().classes('gap-4'):
+        card1 = ui.card().classes('w-64')
+        card2 = ui.card().classes('w-64')
+
+    with card1:
+        label = ui.label("move between cards")
+
+    in_card1 = {'status': True} #to keep track of the text in which card
+
+    #function to move the label
+    def move_label():
+        if in_card1['status']:
+            label.move(card2)
+        else:
+            label.move(card1)
+        in_card1['status'] = not in_card1['status']
+
+    ui.button('Move Label', on_click=move_label) #button which facilitates the move
+
+# 🎯challenge 2: switch cards on clicking the button
+# to keep button in one row and both cards in one row
+with ui.column().classes('items-center space-y-4'):
+    is_swapped = {'status': False} #to keep track of swapping
+
+    #to keep cards in one row
+    with ui.row().classes('gap-4') as card_container:
+        with ui.card().classes('w-64') as cardA:
+            ui.label('Card A')
+        with ui.card().classes('w-64') as cardB:
+            ui.label('Card B')
+
+    #defined the swap card function
+    def swap_cards():
+        if is_swapped['status']:
+            cardA.move(card_container, target_index=0)
+            cardB.move(card_container, target_index=1)
+        else:
+            cardB.move(card_container, target_index=0)
+            cardA.move(card_container, target_index=1)
+        is_swapped['status'] = not is_swapped['status']
+
+    ui.button("Swap Cards", on_click=swap_cards).classes('mx-auto mt-4') #button to facilitate swap
+
 
 
 ui.run()
