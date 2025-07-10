@@ -1,19 +1,5 @@
 from nicegui import ui
 
-"""
-🎯 Summary:
-- Learned how to create dynamic text-based status labels using class inheritance.
-- Explored hyperlink creation inside text using ui.label, ui.link, ui.html.
-- Studied link-target navigation and spacing tricks.
-- Final experiment: Embedding image inside link to act as a button.
-- Demonstrated different ways to customize ui.chat_message using HTML, multiline text, and child elements with with block.
-- learned about event handlers, client side and user side and cards
-- Experimented with moving cards and moving labels inside cards by using .move() function
-- Experimented with layout structuring using ui.row() and ui.column()
-
-🧠 Concepts Practiced: NiceGUI Label/Link/Row/Column, Unicode spacing, Anchor navigation
-"""
-
 # =======================
 # ✅ 1. Dynamic Status Label
 # =======================
